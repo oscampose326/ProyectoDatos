@@ -13,7 +13,8 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import proyectoconsultoriom.Cola.Nodo;
+import proyectoconsultoriom.Listas.Nodo;
+import static proyectoconsultoriom.ProyectoConsultorioM.admin;
 
 /**
  *
@@ -21,14 +22,16 @@ import proyectoconsultoriom.Cola.Nodo;
  */
 public class Cita extends javax.swing.JFrame {
 
-    Paciente paciente;
-
+    public static Paciente paciente;
+    private Nodo nodo;
     /**
      * Creates new form Cita
      */
     public Cita() {
         initComponents();
         this.setLocationRelativeTo(null);
+        //System.out.println(paciente.getNombre());
+        
     }
 
     /**
@@ -54,6 +57,7 @@ public class Cita extends javax.swing.JFrame {
         txtsethora = new javax.swing.JTextField();
         txtsetmotivo = new javax.swing.JTextField();
         btnregresar1 = new javax.swing.JButton();
+        btnreset = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -85,7 +89,7 @@ public class Cita extends javax.swing.JFrame {
                 btnsiguienteActionPerformed(evt);
             }
         });
-        jPanel1.add(btnsiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 300, -1, -1));
+        jPanel1.add(btnsiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 350, -1, -1));
 
         jLabel2.setText("Hora");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 180, -1, -1));
@@ -111,6 +115,15 @@ public class Cita extends javax.swing.JFrame {
         });
         jPanel1.add(btnregresar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 370, -1, -1));
 
+        btnreset.setBackground(new java.awt.Color(204, 204, 255));
+        btnreset.setText("RESETEAR");
+        btnreset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnresetActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnreset, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 300, -1, -1));
+
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Clinica Fondo.jpg"))); // NOI18N
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 680, 410));
 
@@ -135,21 +148,21 @@ public class Cita extends javax.swing.JFrame {
         Date fecha = this.calendario2.getDate();
         String hora = this.combohora.getSelectedItem().toString() + ":" + this.combomin.getSelectedItem().toString();
         String motivo = this.txtmotivo.getText();
-        ProyectoConsultorioM.admin.agregarCita(paciente, fecha, hora, motivo);
-        ProyectoConsultorioM.admin.mostrarCitas(paciente);
+        admin.agregarCita(paciente, fecha, hora, motivo);
+        admin.mostrarCitas(paciente);
     }//GEN-LAST:event_btnagregarActionPerformed
 
     private void btnsiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsiguienteActionPerformed
         // TODO add your handling code here:
-        if (paciente.getCitas().temp != null) {
+        nodo = admin.getNodoPaciente(paciente.getId());
+       
+        if (paciente.getCitas().temp!=null) {
             Date fecha = paciente.getCitas().temp.cita.getFecha();
             String hora = paciente.getCitas().temp.cita.getHora();
             String motivo = paciente.getCitas().temp.cita.getMotivo();
-            DateFormat set = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
             this.txtsetcalendar.setDate(fecha);
             this.txtsethora.setText(hora);
-            this.txtsetmotivo.setText(motivo);
-
+            this.txtsetmotivo.setText(motivo); 
             paciente.getCitas().temp = paciente.getCitas().temp.sig;
         }else{
             JOptionPane.showMessageDialog(null,"No tiene mas citas programadas");
@@ -165,6 +178,11 @@ public class Cita extends javax.swing.JFrame {
         paciente.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnregresar1ActionPerformed
+
+    private void btnresetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnresetActionPerformed
+        // TODO add your handling code here:
+        paciente.getCitas().resetTemp();
+    }//GEN-LAST:event_btnresetActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,6 +222,7 @@ public class Cita extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnagregar;
     private javax.swing.JButton btnregresar1;
+    private javax.swing.JButton btnreset;
     private javax.swing.JButton btnsiguiente;
     private com.toedter.calendar.JDateChooser calendario2;
     private javax.swing.JComboBox<String> combohora;

@@ -118,6 +118,16 @@ public class Listas {
         }
         return null;
     }
+    
+    public Nodo getNodoPaciente(int id){
+        Nodo temp = raiz;
+        while(temp!=null){
+            if(temp.paciente.getId()==id)
+                return temp;
+            temp=temp.sig;
+        }
+        return null;
+    }
     public void borrar(int pos) {
         if (pos <= cantidad()) {
             if (pos == 1) {

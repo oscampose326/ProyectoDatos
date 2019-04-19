@@ -6,6 +6,7 @@
 package proyectoconsultoriom;
 
 import java.util.Date;
+import proyectoconsultoriom.Listas.Nodo;
 
 /**
  *
@@ -36,10 +37,14 @@ public class Admin {
     }
     
     public Paciente buscarPaciente(int id){
-        int pos=paciente.buscar(id);
-        if(pos!=-1)
-            return paciente.getPaciente(pos);
-        return null;
+//        int pos=paciente.buscar(id);
+//        if(pos!=-1)
+            return paciente.getPaciente(id);
+//        return null;
+    }
+    
+    public Nodo getNodoPaciente(int id){
+        return paciente.getNodoPaciente(id);
     }
     public Doctor loginDoctor(String usuario, String pass){
         return doctores.loginDoctor(usuario, pass);

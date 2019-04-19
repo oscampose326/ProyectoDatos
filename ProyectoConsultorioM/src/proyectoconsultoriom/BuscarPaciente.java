@@ -5,6 +5,9 @@
  */
 package proyectoconsultoriom;
 
+import static proyectoconsultoriom.Cita.paciente;
+import static proyectoconsultoriom.ProyectoConsultorioM.admin;
+
 /**
  *
  * @author ulacit
@@ -41,7 +44,6 @@ public class BuscarPaciente extends javax.swing.JFrame {
         btncita = new javax.swing.JButton();
         btnbuscar = new javax.swing.JButton();
         btnrecetario = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -108,14 +110,6 @@ public class BuscarPaciente extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnrecetario, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 310, -1, -1));
-
-        jButton1.setText("AGREGAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(397, 110, 90, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setText("Edad");
@@ -215,7 +209,7 @@ public class BuscarPaciente extends javax.swing.JFrame {
 
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
         // TODO add your handling code here:
-        Paciente encontrado = ProyectoConsultorioM.admin.buscarPaciente(Integer.parseInt(this.txtid.getText()));
+        Paciente encontrado = admin.buscarPaciente(Integer.parseInt(this.txtid.getText()));
         if(encontrado!=null){
             this.txtTS.setText(encontrado.getSangre());
             this.txtNombre.setText(encontrado.getNombre());
@@ -235,7 +229,7 @@ public class BuscarPaciente extends javax.swing.JFrame {
     private void btnrecetarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrecetarioActionPerformed
         // TODO add your handling code here:
         RecetarioMedico recetario = new RecetarioMedico();
-        recetario.paciente=this.actual;
+        paciente=this.actual;
         recetario.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnrecetarioActionPerformed
@@ -247,10 +241,6 @@ public class BuscarPaciente extends javax.swing.JFrame {
         cita.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btncitaActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnregresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresarActionPerformed
 
@@ -324,7 +314,6 @@ public class BuscarPaciente extends javax.swing.JFrame {
     private javax.swing.JButton btnrecetario;
     private javax.swing.JButton btnregresar;
     private javax.swing.JButton btnregresar1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
