@@ -237,7 +237,7 @@ public class BuscarPaciente extends javax.swing.JFrame {
     private void btncitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncitaActionPerformed
         // TODO add your handling code here:
         Cita cita = new Cita();
-        cita.paciente=this.actual;
+        paciente=this.actual;
         cita.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btncitaActionPerformed

@@ -16,6 +16,7 @@ public class Admin {
     //pila doctor
     Listas paciente = new Listas();
     Pila doctores = new Pila();
+    ArbolMedicamentos medicamentos = new ArbolMedicamentos();
     
     /*public void ejemplo_insertar(int id, String nombre, String sangre){
         Paciente pac2 = new Paciente(id,nombre,sangre);
@@ -70,5 +71,17 @@ public class Admin {
     }
     public Cola resetCitas(Paciente paciente){
         return paciente.getCitas();
+    }
+    
+    public void nuevoMedicamento(int x, String nombre){
+        Medicamentos medicamento = new Medicamentos(x,nombre);
+        medicamentos.insertar(medicamento);
+    }
+    
+    public void nuevoResetario(Paciente paciente, String recetario, String receta){
+        Recetario r = new Recetario();
+        r.setRecetario(recetario);
+        r.setReceta(receta);
+        paciente.resetario.insertar(1, r);
     }
 }

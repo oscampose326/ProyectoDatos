@@ -5,6 +5,10 @@
  */
 package proyectoconsultoriom;
 
+import static proyectoconsultoriom.Cita.paciente;
+import proyectoconsultoriom.ListasDobles.Nodo;
+import static proyectoconsultoriom.ProyectoConsultorioM.admin;
+
 /**
  *
  * @author ulacit
@@ -14,10 +18,42 @@ public class RecetarioMedico extends javax.swing.JFrame {
     /**
      * Creates new form RecetarioMedico
      */
-    Paciente paciente;
+    Nodo raiz = null;
+
     public RecetarioMedico() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.jTextArea1.setEditable(false);
+        cargarCombo();
+        try {
+            raiz = paciente.resetario.raiz;
+            cargarRecetario(raiz);
+        } catch (Exception e) {
+        }
+
+    }
+
+    public void cargarCombo() {
+        ArbolMedicamentos temp = admin.medicamentos;
+        imprimirEntre(admin.medicamentos.raiz);
+        admin.medicamentos.imprimirEntre();
+
+    }
+
+    private void imprimirEntre(ArbolMedicamentos.Nodo reco) {
+        if (reco != null) {
+            imprimirEntre(reco.izq);
+            //System.out.print(reco.info.nombre + " ");
+            this.jComboBox2.addItem(reco.info.getId() + "-" + reco.info.getNombre());
+            imprimirEntre(reco.der);
+        }
+    }
+
+    public void cargarRecetario(Nodo r) {
+        if (r != null) {
+            this.txtrecetario.setText(r.recetario.getRecetario());
+            this.jTextArea1.setText(r.recetario.getReceta());
+        }
     }
 
     /**
@@ -33,10 +69,6 @@ public class RecetarioMedico extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtrecetario = new javax.swing.JTextArea();
-        btnmodificar = new javax.swing.JButton();
-        btncrear = new javax.swing.JButton();
-        btnguardar = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         btnguardar1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -44,6 +76,9 @@ public class RecetarioMedico extends javax.swing.JFrame {
         btnanterior = new javax.swing.JButton();
         btnsiguiente = new javax.swing.JButton();
         btnregresar1 = new javax.swing.JButton();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        btnadd = new javax.swing.JButton();
+        btnnuevo = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -62,23 +97,6 @@ public class RecetarioMedico extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 69, 311, 120));
 
-        btnmodificar.setBackground(new java.awt.Color(204, 204, 255));
-        btnmodificar.setText("MODIFICAR");
-        jPanel1.add(btnmodificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(372, 69, -1, -1));
-
-        btncrear.setBackground(new java.awt.Color(204, 204, 255));
-        btncrear.setText("CREAR");
-        jPanel1.add(btncrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(372, 103, 91, -1));
-
-        btnguardar.setBackground(new java.awt.Color(204, 204, 255));
-        btnguardar.setText("GUARDAR");
-        jPanel1.add(btnguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(372, 137, 91, -1));
-
-        jComboBox1.setBackground(new java.awt.Color(204, 204, 255));
-        jComboBox1.setForeground(new java.awt.Color(204, 204, 255));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1. Acetaminofen.", "2. Ibuprofeno.", "3. ", "Item 4" }));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(372, 252, -1, -1));
-
         jLabel2.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Medicamento");
@@ -86,7 +104,12 @@ public class RecetarioMedico extends javax.swing.JFrame {
 
         btnguardar1.setBackground(new java.awt.Color(204, 204, 255));
         btnguardar1.setText("GUARDAR");
-        jPanel1.add(btnguardar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(372, 290, 108, -1));
+        btnguardar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnguardar1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnguardar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 330, 108, -1));
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -96,10 +119,20 @@ public class RecetarioMedico extends javax.swing.JFrame {
 
         btnanterior.setBackground(new java.awt.Color(204, 204, 255));
         btnanterior.setText("ANTERIOR");
+        btnanterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnanteriorActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnanterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, -1, -1));
 
         btnsiguiente.setBackground(new java.awt.Color(204, 204, 255));
         btnsiguiente.setText("SIGUIENTE");
+        btnsiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsiguienteActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnsiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 200, -1, -1));
 
         btnregresar1.setBackground(new java.awt.Color(204, 204, 255));
@@ -110,6 +143,31 @@ public class RecetarioMedico extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnregresar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 370, -1, -1));
+
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 260, 110, -1));
+
+        btnadd.setBackground(new java.awt.Color(204, 204, 255));
+        btnadd.setText("AGREGAR");
+        btnadd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnaddActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnadd, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 290, 108, -1));
+
+        btnnuevo.setBackground(new java.awt.Color(204, 204, 255));
+        btnnuevo.setText("NUEVO");
+        btnnuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnnuevoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnnuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 70, 108, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Clinica Fondo.jpg"))); // NOI18N
         jLabel3.setText("jLabel3");
@@ -136,10 +194,51 @@ public class RecetarioMedico extends javax.swing.JFrame {
     private void btnregresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresar1ActionPerformed
         // TODO add your handling code here:
         BuscarPaciente paciente = new BuscarPaciente();
-        paciente.actual = this.paciente;
         paciente.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnregresar1ActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void btnaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaddActionPerformed
+        // TODO add your handling code here:
+        this.jTextArea1.setText(this.jTextArea1.getText() + "  " + this.jComboBox2.getSelectedItem().toString());
+    }//GEN-LAST:event_btnaddActionPerformed
+
+    private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
+        // TODO add your handling code here:
+        this.txtrecetario.setText("");
+        this.jTextArea1.setText("");
+    }//GEN-LAST:event_btnnuevoActionPerformed
+
+    private void btnguardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardar1ActionPerformed
+        // TODO add your handling code here:
+        admin.nuevoResetario(paciente, this.txtrecetario.getText(), this.jTextArea1.getText());
+        raiz = paciente.resetario.raiz;
+    }//GEN-LAST:event_btnguardar1ActionPerformed
+
+    private void btnsiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsiguienteActionPerformed
+        // TODO add your handling code here:
+        if (raiz != null) {
+            if (raiz.sig != null) {
+                raiz = raiz.sig;
+                cargarRecetario(raiz);
+            }
+        }
+    }//GEN-LAST:event_btnsiguienteActionPerformed
+
+    private void btnanteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnanteriorActionPerformed
+        // TODO add your handling code here:
+        if (raiz != null) {
+            if (raiz.ant != null) {
+                raiz = raiz.ant;
+                cargarRecetario(raiz);
+            }
+        }
+    }//GEN-LAST:event_btnanteriorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,14 +276,13 @@ public class RecetarioMedico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnadd;
     private javax.swing.JButton btnanterior;
-    private javax.swing.JButton btncrear;
-    private javax.swing.JButton btnguardar;
     private javax.swing.JButton btnguardar1;
-    private javax.swing.JButton btnmodificar;
+    private javax.swing.JButton btnnuevo;
     private javax.swing.JButton btnregresar1;
     private javax.swing.JButton btnsiguiente;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

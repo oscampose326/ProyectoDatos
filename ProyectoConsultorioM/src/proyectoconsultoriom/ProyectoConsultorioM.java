@@ -5,6 +5,8 @@
  */
 package proyectoconsultoriom;
 
+import static proyectoconsultoriom.ProyectoConsultorioM.admin;
+
 /** 
  *
  * @author ulacit
@@ -18,6 +20,17 @@ public class ProyectoConsultorioM {
     public static Doctor doctor;
     public static void main(String[] args) {
         //int id, String nombre, String sangre, int estatura, int peso
+       admin.nuevoMedicamento(20, "Aspirina");
+       admin.nuevoMedicamento(10, "x");
+       admin.nuevoMedicamento(30, "y");
+       admin.nuevoMedicamento(12, "z");
+       admin.nuevoMedicamento(9, "c");
+       admin.nuevoMedicamento(1, "v");
+       admin.nuevoMedicamento(5, "b");
+       admin.nuevoMedicamento(8, "n");
+       admin.nuevoMedicamento(33, "m");
+       admin.nuevoMedicamento(29, "k");
+       admin.nuevoMedicamento(19, "u");
        
        ProyectoConsultorioM.admin.registrarDoctor("DocTest", 0, 0, 0, 0, "-O", "test", "123");
        ProyectoConsultorioM.admin.registrarPaciente(1, "Eduardo", "A+",0,0,0);

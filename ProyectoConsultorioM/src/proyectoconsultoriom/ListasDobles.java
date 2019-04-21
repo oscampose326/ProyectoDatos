@@ -15,7 +15,7 @@ public class ListasDobles {
         Nodo ant, sig;
     }
 
-    private Nodo raiz;
+    public Nodo raiz;
 
     public ListasDobles() {
         raiz = null;

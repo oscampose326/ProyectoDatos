@@ -12,9 +12,18 @@ package proyectoconsultoriom;
 public class Recetario {
     
     private String recetario;
+    private String receta;
 
-    public Recetario(String recetario) {
-        this.recetario = recetario;
+    public Recetario() {
+        
+    }
+
+    public String getReceta() {
+        return receta;
+    }
+
+    public void setReceta(String receta) {
+        this.receta = receta;
     }
 
     public String getRecetario() {

@@ -17,7 +17,7 @@ public class Paciente {
     private int peso;
     private int estatura;
     private Cola citas;
-    private ListasDobles resetario;
+    public ListasDobles resetario;
     //arbol medicamentos
 
     /*public Paciente(int id, String nombre, String sangre) {
@@ -105,6 +105,7 @@ public class Paciente {
     public void setEstatura(int estatura) {
         this.estatura = estatura;
     }
+    
     
     
 }
